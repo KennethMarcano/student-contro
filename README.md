@@ -1,0 +1,2 @@
+# student-control
+This application implements a student management system that allows complete control over student information. Users have the ability to add, edit, and remove students from the system. To access these features, users must be authenticated through a login system validated by JWT tokens (JSON Web Tokens).
