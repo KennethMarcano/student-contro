@@ -17,9 +17,6 @@ var _alunoRoutes = require('./routes/alunoRoutes'); var _alunoRoutes2 = _interop
 var _fotoRoutes = require('./routes/fotoRoutes'); var _fotoRoutes2 = _interopRequireDefault(_fotoRoutes);
 
 const whiteList = [
-  'https://student-control.vercel.app/',
-  'https://student-control.vercel.app',
-  'https://student-control.vercel.app/:1',
   'http://35.199.67.52:81',
   'http://35.199.67.52:3003',
   'http://35.199.67.52:3000',
@@ -28,6 +25,7 @@ const whiteList = [
   'http://localhost:3000',
   'http://localhost:3306',
   'http://localhost:81',
+  'http://localhost:82',
 ]
 
 const corsOptions = {
