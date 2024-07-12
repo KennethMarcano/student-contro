@@ -17,6 +17,7 @@ import alunoRoutes from './routes/alunoRoutes'
 import fotoRoutes from './routes/fotoRoutes'
 
 const whiteList = [
+  'https://student-control.vercel.app',
   'http://35.199.67.52:81',
   'http://35.199.67.52:3001',
   'http://35.199.67.52:3000',
