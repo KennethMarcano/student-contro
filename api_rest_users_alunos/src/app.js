@@ -46,7 +46,9 @@ class App {
 
   middleware() {
     this.app.use(cors(corsOptions)); //aqui se restringe los accesos solo para las url de la whitelist
-    this.app.use(helmet());
+    this.app.use(helmet({
+      crossOriginEmbedderPolicy: false,
+    }));
     this.app.use(delay(500));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
