@@ -1,0 +1,19 @@
+{
+  "name": "student-control",
+  "version": "1.0.0",
+  "description": "This application implements a student management system that allows complete control over student information. Users have the ability to add, edit, and remove students from the system. To access these features, users must be authenticated through a login system validated by JWT tokens (JSON Web Tokens).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:api": "cd api_rest_users_alunos && npm install",
+    "start:api" : "cd api_rest_users_alunos && npm start",
+    "install:frontend": "cd frontend && npm install",
+    "start:frontend": "cd frontend && npm start",
+    "start": "concurrently \"npm run start:api\" \"npm run start:frontend\"",
+    "buildApi": "cd api_rest_users_alunos && npm rum build",
+    "install": "concurrently \"npm run install:api\" \"npm run install:frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
