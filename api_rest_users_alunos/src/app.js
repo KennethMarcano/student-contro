@@ -18,11 +18,12 @@ import fotoRoutes from './routes/fotoRoutes'
 
 const whiteList = [
   'https://student-control.vercel.app',
+  'https://student-control.vercel.app/:1',
   'http://35.199.67.52:81',
-  'http://35.199.67.52:3001',
+  'http://35.199.67.52:3003',
   'http://35.199.67.52:3000',
   'http://35.199.67.52',
-  'http://localhost:3001',
+  'http://localhost:3003',
   'http://localhost:3000',
   'http://localhost:3306',
 ]
