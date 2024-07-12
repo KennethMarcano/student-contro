@@ -2,14 +2,14 @@
 import dotenv from 'dotenv'; //se debe instalar el dontenv por el terminal
 import { resolve } from 'path';
 import cors from 'cors';
-//import helmet from 'helmet';
+import express from 'express';
+import delay from 'express-delay';
+import helmet from 'helmet';
 
 dotenv.config()
 
 //importaciones locales
 import './database'
-import express from 'express';
-import delay from 'express-delay';
 import homeRoutes from './routes/homeRoutes'
 import userRoutes from './routes/userRoutes'
 import tokenRoutes from './routes/tokenRoutes'
@@ -19,9 +19,11 @@ import fotoRoutes from './routes/fotoRoutes'
 const whiteList = [
   'http://35.199.67.52:81',
   'http://35.199.67.52:3001',
+  'http://35.199.67.52:3000',
   'http://35.199.67.52',
   'http://localhost:3001',
   'http://localhost:3000',
+  'http://localhost:3306',
 ]
 
 const corsOptions = {
@@ -40,7 +42,7 @@ class App {
 
   middleware() {
     this.app.use(cors(corsOptions)); //aqui se restringe los accesos solo para las url de la whitelist
-    //this.app.use(helmet());
+    this.app.use(helmet());
     this.app.use(delay(500));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
