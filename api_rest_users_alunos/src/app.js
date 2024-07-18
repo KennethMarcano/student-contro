@@ -17,7 +17,8 @@ import alunoRoutes from './routes/alunoRoutes'
 import fotoRoutes from './routes/fotoRoutes'
 
 const whiteList = [
-  'http://35.199.67.52:82'
+  'http://35.199.67.52:82',
+  'http://localhost:3000'
 ]
 
 const corsOptions = {
