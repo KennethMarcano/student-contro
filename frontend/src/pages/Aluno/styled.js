@@ -14,12 +14,12 @@ export const FormularioAluno = styled.div`
         align-items: center;
 
         input {
-            width: 70%;
+            min-width: 50%;
             margin: 15px 0;
-            padding: 8px 0;
+            height: 3.5rem;
             text-align: center;
             border: 1px solid #bebebe;
-            font-size: 15px;
+            font-size: 0.9rem;
             &:focus{
                 border: 2px solid ${colors.primaryColor};
             }

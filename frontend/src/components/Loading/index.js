@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 import { Container } from "./styled";
 
-export default function Loading({ isLoading }) {
+export default function Loading({ isLoading = false }) {
     if (!isLoading) return <></>;
 
     return (
@@ -12,10 +12,6 @@ export default function Loading({ isLoading }) {
     </Container>
     )
 }
-
-Loading.defaultProps = {
-    isLoading: false,
-};
 
 Loading.propTypes = {
     isLoading: PropTypes.bool,

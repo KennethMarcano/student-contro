@@ -7,28 +7,39 @@ export const ContainerAlunos = styled.div`
         text-align: center;
     }
 
-    table{
-        div {
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            border-bottom: 1px solid #eee;
-            &:hover {
-                background: #eee;
-            }
-        }
-
-        td {
-            padding: 15px 10px;
-        }
-
-        img {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-        }
-          
+    .responsive-table{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
     }
+      
+    .alunos-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .aluno-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        &:hover {
+            background: #eee;
+        }
+    }
+
+
+    img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
+          
 
 `;
 

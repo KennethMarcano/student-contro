@@ -59,46 +59,44 @@ export default function Alunos() {
             <Loading isLoading={isLoading} />
             <ContainerAlunos>
                 <h1>Alunos</h1>
-                <table>
-                    {alunos.map(aluno => {
-                        return (
-                            <tr>
-                                <div key={String(aluno.id)}>
-                                    <td>
-                                        {
-                                            get(aluno, 'Fotos[0].url', false) ?
-                                                <img crossOrigin="" src={aluno.Fotos[0].url} alt="" />
-                                                :
-                                                <FaUserCircle size={34} />
-                                        }
-                                    </td>
-                                    <td>{aluno.nome}</td>
-                                    <td>{aluno.email}</td>
+                <div className="responsive-table">
+                    <div className="alunos-container">
+                        {alunos.map(aluno => {
+                            return (
+                                    <div className="aluno-container" key={String(aluno.id)}>
+                                        <div>
+                                            {
+                                                get(aluno, 'Fotos[0].url', false) ?
+                                                    <img crossOrigin="" src={aluno.Fotos[0].url} alt="" />
+                                                    :
+                                                    <FaUserCircle size={34} />
+                                            }
+                                        </div>
+                                        <div>{aluno.nome}</div>
+                                        <div>{aluno.sobrenome}</div>
+                                        <div>{aluno.email}</div>
 
-                                    <td>
-                                        <Link to={`/aluno/${aluno.id}/edit`} >
-                                            <FaEdit color="blue" />
-                                        </Link>
-                                    </td>
+                                        <div>
+                                            <Link to={`/aluno/${aluno.id}/edit`} >
+                                                <FaEdit color="blue" />
+                                            </Link>
+                                            <Link onClick={e => {
+                                                e.preventDefault();
+                                                handleDelete(e, aluno.id)
+                                            }}
+                                                to={`/aluno/${aluno.id}/delete`}>
+                                                <FaWindowClose />
+                                            </Link>
+                                        </div>
 
-                                    <td>
-                                        <Link on onClick={e => {
-                                            e.preventDefault();
-                                            handleDelete(e, aluno.id)
-                                        }}
-                                            to={`/aluno/${aluno.id}/delete`}>
-                                            <FaWindowClose />
-                                        </Link>
-                                    </td>
+                                    </div>
 
+                            );
+                        })}
 
-                                </div>
+                    </div>
+                </div>
 
-                            </tr>
-                        );
-                    })}
-
-                </table>
                 <NovoAluno to='/aluno'>Criar novo aluno</NovoAluno>
             </ContainerAlunos>
 

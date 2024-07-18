@@ -101,7 +101,7 @@ export default function Aluno({ match }) {
             if (errors.length > 0)
                 errors.map(error => toast.error(error));
             else
-                toast.error('Erro desconhecido')
+                toast.error('Erro desconhecido');
 
             if (status === 401) dispatch(actions.loginFailure())
             history.push('/');
@@ -125,6 +125,7 @@ export default function Aluno({ match }) {
                 )}
 
                 <form onSubmit={handleSubmit}>
+                    <label>Nome:</label>
                     <input
                         type="text"
                         value={nome}
@@ -133,6 +134,7 @@ export default function Aluno({ match }) {
                     >
                     </input>
 
+                    <label>Sobrenome:</label>
                     <input
                         type="text"
                         value={sobrenome}
@@ -141,6 +143,7 @@ export default function Aluno({ match }) {
                     >
                     </input>
 
+                    <label>E-mail:</label>
                     <input
                         type="text"
                         value={email}
@@ -149,6 +152,7 @@ export default function Aluno({ match }) {
                     >
                     </input>
 
+                    <label>Idade:</label>
                     <input
                         type="text"
                         value={idade}
@@ -157,6 +161,7 @@ export default function Aluno({ match }) {
                     >
                     </input>
 
+                    <label>Peso:</label>
                     <input
                         type="text"
                         value={peso}
@@ -165,6 +170,7 @@ export default function Aluno({ match }) {
                     >
                     </input>
 
+                    <label>Altura:</label>
                     <input
                         type="text"
                         value={altura}
