@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install:api": "cd api_rest_users_alunos && npm install",
-    "start:api" : "cd api_rest_users_alunos && npm start",
+    "start:api": "cd api_rest_users_alunos && npm start",
     "install:frontend": "cd frontend && npm install",
     "start:frontend": "cd frontend && npm start",
     "start": "concurrently \"npm run start:api\" \"npm run start:frontend\"",
@@ -15,5 +15,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "sweetalert2": "^11.14.0",
+    "sweetalert2-react-content": "^5.0.7"
+  }
 }

@@ -44,11 +44,14 @@ export default createGlobalStyle`
 
 `;
 
-export const Container = styled.section `
-    max-width: 42%;
-    padding: 40px;
-    margin: 40px auto;
-    background: #fff;
-    border-radius: 10px;
+export const Container = styled.section`
+    max-width: 550px;
+    padding: 20px;  
+    margin: 40px auto;  
+    background: #fff;  
+    border-radius: 10px;  
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-`
+    @media (max-width: 605px) {
+        max-width: 90%;
+    }
+`; 

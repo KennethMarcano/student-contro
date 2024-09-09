@@ -24,6 +24,10 @@ export const Nav = styled.nav`
       a {
         color: #fff;
         margin: 0 10px;
+        transition: all 300ms ease-in-out;
+        &:hover{
+            transform: scale(1.1);
+        }
     }
 
     }

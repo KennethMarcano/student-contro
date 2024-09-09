@@ -16,7 +16,7 @@ export const FormularioAluno = styled.div`
         input {
             min-width: 50%;
             margin: 15px 0;
-            height: 3.5rem;
+            height: 2.5rem;
             text-align: center;
             border: 1px solid #bebebe;
             font-size: 0.9rem;

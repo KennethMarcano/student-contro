@@ -1,51 +1,72 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const ContainerAlunos = styled.div`
-    
-    h1 {
-        text-align: center;
-    }
+export const Title = styled.h1`  
+  text-align: center;  
+  margin-bottom: 20px;  
+  color: #333;  
+`;  
 
-    .responsive-table{
-    display: flex;
+export const AlunosContainer = styled.div`  
+  display: flex;  
+  flex-direction: column;  
+`;  
+
+export const AlunoCard = styled.div`  
+  display: flex;  
+  align-items: center;  
+  justify-content: center; 
+  gap: 20px;
+  padding: 15px;  
+  border: 1px solid #eee;  
+  border-radius: 5px;  
+  margin-bottom: 15px;  
+  transition: background 0.3s;  
+  
+  &:hover {  
+    background: #f0f0f0;  
+  }
+  @media (max-width: 605px) {
     flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    overflow-x: auto;
-    }
-      
-    .alunos-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+    gap: 10px;
+  }
+`;  
 
-    .aluno-container {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        border-bottom: 1px solid #eee;
-        &:hover {
-            background: #eee;
-        }
-    }
+export const AlunoInfo = styled.div`  
+  display: flex; 
+  gap: 20px; 
+  align-items: center;
+  @media (max-width: 605px) {
+    flex-direction: column;
+  }
+`;  
 
+export const AlunoImage = styled.img`  
+  width: 50px;  
+  height: 50px;  
+  border-radius: 50%;  
+  object-fit: cover;  
+  margin-right: 15px;  
+`;  
 
-    img {
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-    }
-          
+export const AlunoDetails = styled.div`  
+  display: flex;
+  gap: 20px;
+  @media (max-width: 605px) {
+    flex-direction: column;
+    align-items: center; 
+  }
+`;  
 
-`;
+export const ActionsContainer = styled.div`  
+  display: flex;  
+`;  
 
-export const NovoAluno = styled(Link)`
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    margin-top: 30px;
-`;
+export const ActionButton = styled(Link)` 
+    align-self: center;
+  background: transparent;  
+  border: none;  
+  cursor: pointer;  
+  margin-left: 10px;  
+  transition: all 0.3s;  
+`;  

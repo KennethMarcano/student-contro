@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { get } from "lodash";
 import { FaUserCircle, FaEdit, FaWindowClose } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 
 import axios from "../../services/axios";
 import history from "../../services/history";
 import { Container } from "../../styles/GlobalStyles";
-import { ContainerAlunos, NovoAluno } from "./styled";
+import { ActionButton, ActionsContainer, AlunoCard, AlunoDetails, AlunoImage, AlunoInfo, AlunosContainer, Title } from "./styled";
 import Loading from "../../components/Loading";
+
+const MySwal = withReactContent(Swal);
 
 export default function Alunos() {
     const [alunos, setAlunos] = useState([]);
@@ -34,72 +38,70 @@ export default function Alunos() {
         getAlunos();
     }, []);
 
-    async function handleDelete(e, id) {
-        setIsLoading(true);
-        toast.loading('Apagando...', { position: 'top-center' })
-        try {
-            await axios.delete(`/alunos/${id}`);
-            const response = await axios.get('/alunos');
-            toast.dismiss()
-            setIsLoading(false);
-            setAlunos(response.data);
-        } catch (err) {
-            toast.dismiss()
-            setIsLoading(false);
-            const errors = get(err, 'response.data.errors', []);
-            errors.map(error => toast.error(error));
-            history.push('/login')
+    async function handleDelete(id, index) {
+        const response = await MySwal.fire({
+            title: `Apagar o aluno ${alunos[index].nome}?`,
+            text: "O registro sera apagado para sempre!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim"
+          })
+        if(response.isConfirmed){
+            setIsLoading(true);
+            toast.loading('Apagando...', { position: 'top-center' })
+            try {
+                await axios.delete(`/alunos/${id}`);
+                const response = await axios.get('/alunos');
+                toast.dismiss()
+                MySwal.fire({
+                    title: "Registro apagado!",
+                    icon: "success"
+                  });
+                setIsLoading(false);
+                setAlunos(response.data);
+            } catch (err) {
+                toast.dismiss()
+                setIsLoading(false);
+                const errors = get(err, 'response.data.errors', []);
+                errors.map(error => toast.error(error));
+                history.push('/login')
+            }
         }
-
-
     }
 
     return (
         <Container>
             <Loading isLoading={isLoading} />
-            <ContainerAlunos>
-                <h1>Alunos</h1>
-                <div className="responsive-table">
-                    <div className="alunos-container">
-                        {alunos.map(aluno => {
-                            return (
-                                    <div className="aluno-container" key={String(aluno.id)}>
-                                        <div>
-                                            {
-                                                get(aluno, 'Fotos[0].url', false) ?
-                                                    <img crossOrigin="" src={aluno.Fotos[0].url} alt="" />
-                                                    :
-                                                    <FaUserCircle size={34} />
-                                            }
-                                        </div>
-                                        <div>{aluno.nome}</div>
-                                        <div>{aluno.sobrenome}</div>
-                                        <div>{aluno.email}</div>
-
-                                        <div>
-                                            <Link to={`/aluno/${aluno.id}/edit`} >
-                                                <FaEdit color="blue" />
-                                            </Link>
-                                            <Link onClick={e => {
-                                                e.preventDefault();
-                                                handleDelete(e, aluno.id)
-                                            }}
-                                                to={`/aluno/${aluno.id}/delete`}>
-                                                <FaWindowClose />
-                                            </Link>
-                                        </div>
-
-                                    </div>
-
-                            );
-                        })}
-
-                    </div>
-                </div>
-
-                <NovoAluno to='/aluno'>Criar novo aluno</NovoAluno>
-            </ContainerAlunos>
-
-        </Container>);
+            <Title>Lista de Alunos</Title>
+            <AlunosContainer>
+                {alunos.map((aluno, index) => (
+                    <AlunoCard key={aluno.id}>
+                        <AlunoInfo>
+                            {aluno.foto ? (
+                                <AlunoImage src={aluno.foto} alt={`${aluno.nome} ${aluno.sobrenome}`} />
+                            ) : (
+                                <FaUserCircle size={50} />
+                            )}
+                            <AlunoDetails>
+                                <div>{aluno.nome} {aluno.sobrenome}</div>
+                                <div>{aluno.email}</div>
+                            </AlunoDetails>
+                        </AlunoInfo>
+                        <ActionsContainer>
+                            <ActionButton to={`/aluno/${aluno.id}/edit`}>
+                                <FaEdit color="blue" />
+                            </ActionButton>
+                            <ActionButton to={`/aluno/${aluno.id}/delete`} onClick={() => handleDelete(aluno.id, index)}>
+                                <FaWindowClose />
+                            </ActionButton>
+                        </ActionsContainer>
+                    </AlunoCard>
+                ))}
+                <ActionButton to='/aluno'>Criar novo aluno</ActionButton>
+            </AlunosContainer>
+        </Container>
+    );
 }
 
