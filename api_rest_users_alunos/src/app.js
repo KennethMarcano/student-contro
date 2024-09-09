@@ -1,5 +1,4 @@
-//importaciones de librerias de node
-import dotenv from 'dotenv'; //se debe instalar el dontenv por el terminal
+import dotenv from 'dotenv';
 import { resolve } from 'path';
 import cors from 'cors';
 import express from 'express';
@@ -41,7 +40,9 @@ class App {
       crossOriginEmbedderPolicy: false,
     }));
     this.app.use(delay(500));
+     // middleware que sirve para recibir los datos de un formulario como un objeto com parametros bien definidos
     this.app.use(express.urlencoded({ extended: true }));
+    // esto convierte los datos JSON recibidos en un objeto JavaScript accesible a través de req.body
     this.app.use(express.json());
     this.app.use( '/images/', express.static(resolve(__dirname, '..', 'uploads', 'images')));
   }
