@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { get } from "lodash";
 import { toast } from "react-toastify";
 import validator from "validator";
-import history from "../../services/history";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Container } from "../../styles/GlobalStyles";
 import { ContainerLogin } from "./styled";
 import * as actions from '../../store/modules/auth/actions'
-import Loading from "../../components/Loading";
-
 
 export default function Login(props) {
     const dispatch = useDispatch();
@@ -20,7 +17,12 @@ export default function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const isLoading = useSelector(state => state.auth.isLoading);
+    useEffect(()=> {
+        if(prevPath !== '/'){
+            toast.error('Precisa fazer login!')
+        }
+    }, [])
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -42,7 +44,6 @@ export default function Login(props) {
 
     return (
         <Container>
-            <Loading isLoading={isLoading}/>
             <ContainerLogin>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>

@@ -6,6 +6,7 @@ import Proptypes from 'prop-types'
 import { useDispatch } from "react-redux";
 import { FaUserCircle, FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 import * as actions from '../../store/modules/auth/actions'
 import axios from "../../services/axios";
@@ -29,7 +30,16 @@ export default function Aluno({ match }) {
         if (!id) return;
         async function getAluno() {
             try {
+                Swal.fire({
+                    title: 'Carregando...',
+                    text: 'Por favor, espere...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
                 const response = await axios.get(`/alunos/${id}`);
+                Swal.close();
                 setNome(response.data.nome)
                 setSobrenome(response.data.sobrenome)
                 setEmail(response.data.email)
@@ -38,6 +48,7 @@ export default function Aluno({ match }) {
                 setAltura(response.data.altura)
                 setFoto(response.data.Fotos[0])
             } catch (e) {
+                Swal.close();
                 const errors = get(e, 'response.data.errors', []);
                 const status = get(e, 'response.status', 0);
                 if (errors.length > 0)
@@ -85,17 +96,28 @@ export default function Aluno({ match }) {
         if (errorForm) return;
 
         try {
+            Swal.fire({
+                title: 'Carregando...',
+                text: 'Por favor, espere...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             if (!id) {
                 await axios.post('/alunos', { nome, sobrenome, email, idade, peso, altura });
-                toast.success('Aluno criado com sucesso', { position: 'top-center' });
+                Swal.close();
+                toast.success('Aluno criado com sucesso');
                 return history.push('/');
             }
             else {
                 await axios.put(`/alunos/${id}`, { nome, sobrenome, email, idade, peso, altura })
+                Swal.close();
                 toast.success('Aluno alterado com sucesso');
                 return;
             }
         } catch (err) {
+            Swal.close();
             const errors = get(err, 'response.data.errors', []);
             const status = get(err, 'response.status', 0);
             if (errors.length > 0)

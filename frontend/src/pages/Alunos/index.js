@@ -1,33 +1,35 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from 'react-redux';
 import { get } from "lodash";
 import { FaUserCircle, FaEdit, FaWindowClose } from "react-icons/fa";
 import { toast } from "react-toastify";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-
+import Swal from 'sweetalert2';
 
 import axios from "../../services/axios";
 import history from "../../services/history";
 import { Container } from "../../styles/GlobalStyles";
 import { ActionButton, ActionsContainer, AlunoCard, AlunoDetails, AlunoImage, AlunoInfo, AlunosContainer, Title } from "./styled";
-import Loading from "../../components/Loading";
-
-const MySwal = withReactContent(Swal);
 
 export default function Alunos() {
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const [alunos, setAlunos] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         async function getAlunos() {
-            setIsLoading(true);
-            toast.loading('Carregando...', { position: 'top-center' })
+            Swal.fire({
+                title: 'Carregando...',
+                text: 'Por favor, espere...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             try {
                 const response = await axios.get('/alunos');
                 setAlunos(response.data);
-                toast.dismiss()
-                setIsLoading(false);
+                Swal.close()
             } catch (e) {
+                Swal.close()
                 const errors = get(e, 'response.data.errors', []);
                 errors.map(error => toast.error(error));
             }
@@ -39,31 +41,33 @@ export default function Alunos() {
     }, []);
 
     async function handleDelete(id, index) {
-        const response = await MySwal.fire({
-            title: `Apagar o aluno ${alunos[index].nome}?`,
+        if (!isLoggedIn) return;
+        const response = await Swal.fire({
+            title: `Apagar aluna/o ${alunos[index].nome}?`,
             text: "O registro sera apagado para sempre!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Sim"
-          })
-        if(response.isConfirmed){
-            setIsLoading(true);
-            toast.loading('Apagando...', { position: 'top-center' })
+        })
+        if (response.isConfirmed) {
+            Swal.fire({
+                title: 'Apagando...',
+                text: 'Por favor, espere...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             try {
                 await axios.delete(`/alunos/${id}`);
                 const response = await axios.get('/alunos');
-                toast.dismiss()
-                MySwal.fire({
-                    title: "Registro apagado!",
-                    icon: "success"
-                  });
-                setIsLoading(false);
+                Swal.close();
+                toast.success('Registro apagado com sucesso.')
                 setAlunos(response.data);
             } catch (err) {
-                toast.dismiss()
-                setIsLoading(false);
+                Swal.close();
                 const errors = get(err, 'response.data.errors', []);
                 errors.map(error => toast.error(error));
                 history.push('/login')
@@ -73,7 +77,6 @@ export default function Alunos() {
 
     return (
         <Container>
-            <Loading isLoading={isLoading} />
             <Title>Lista de Alunos</Title>
             <AlunosContainer>
                 {alunos.map((aluno, index) => (

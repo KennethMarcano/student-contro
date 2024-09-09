@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../store/modules/auth/actions'
 import { Container } from "../../styles/GlobalStyles";
 import { ContainerRegister } from "./styled";
-import Loading from "../../components/Loading";
 
 
 export default function Register() {
@@ -14,7 +13,6 @@ export default function Register() {
     const nomeStored = useSelector(state => state.auth.user.nome);
     const emailStored = useSelector(state => state.auth.user.email);
     const id = useSelector(state => state.auth.user.id);
-    const isLoading = useSelector(state => state.auth.isLoading)
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
@@ -50,7 +48,6 @@ export default function Register() {
 
     return (
         <Container>
-            <Loading isLoading={isLoading} />
             <ContainerRegister>
                 <h1>{id ? 'Editar dados' : 'Crie sua conta'}</h1>
                 <form onSubmit={handleSubmit}>
